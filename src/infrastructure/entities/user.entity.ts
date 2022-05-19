@@ -20,6 +20,6 @@ export class User {
   @CreateDateColumn({ name: 'created_at' })
   created_at: Date;
 
-  @UpdateDateColumn({ name: 'updateddate' })
+  @UpdateDateColumn({ name: 'updated_at' })
   updated_at: Date;
 }

@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  app:
+    build:
+      context: ./
+      dockerfile: ./docker/Dockerfile
+    entrypoint: ./docker/entrypoint.sh
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/home/node/app
+
+  postgres:
+    image: postgres:14.3
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ./docker/db/:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "filipe1309@gmail.com"
+      PGADMIN_DEFAULT_PASSWORD: "postgres"
+    ports:
+      - 16543:80
+    depends_on:
+      - postgres

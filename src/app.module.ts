@@ -3,9 +3,10 @@ import { EnvironmentConfigModule } from './infrastructure/config/environment-con
 import { TypeOrmConfigModule } from './infrastructure/config/typeorm/typeorm.module';
 import { LoggerModule } from './infrastructure/logger/logger.module';
 import { ExceptionsModule } from './infrastructure/exceptions/exceptions.module';
+import { RepositoriesModule } from './infrastructure/repositories/repositories.module';
 
 @Module({
-  imports: [EnvironmentConfigModule, TypeOrmConfigModule, LoggerModule, ExceptionsModule],
+  imports: [EnvironmentConfigModule, TypeOrmConfigModule, LoggerModule, ExceptionsModule, RepositoriesModule],
   controllers: [],
   providers: [],
 })

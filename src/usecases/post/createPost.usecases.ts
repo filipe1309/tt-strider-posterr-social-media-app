@@ -1,8 +1,12 @@
+import { ILogger } from 'src/domain/logger/logger.interface';
 import { PostModel, PostType } from 'src/domain/model/post';
 import { PostRepository } from 'src/domain/repositories/postRepository.interface';
 
 export class CreatePostUseCases {
-  constructor(private readonly postRepository: PostRepository) {}
+  constructor(
+    private readonly logger: ILogger,
+    private readonly postRepository: PostRepository,
+  ) {}
 
   async execute(
     content: string,
@@ -15,6 +19,11 @@ export class CreatePostUseCases {
     post.user_id = user_id;
     post.type = type;
     post.post_id_from = post_id_from;
-    return await this.postRepository.insert(post);
+    const result = await this.postRepository.insert(post);
+    this.logger.log(
+      'CreatePostUseCases execute',
+      'New post have been inserted',
+    );
+    return result;
   }
 }

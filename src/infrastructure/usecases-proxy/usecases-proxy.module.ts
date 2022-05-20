@@ -14,6 +14,12 @@ import { UseCaseProxy } from './usecases-proxy';
 export class UsecasesProxyModule {
   static GET_USER_USECASES_PROXY = 'getUserUsecasesProxy';
   static GET_USERS_USECASES_PROXY = 'getUsersUsecasesProxy';
+  static POST_FOLLOW_USER_USECASES_PROXY = 'postFollowUserUsecasesProxy';
+  static POST_UNFOLLOW_USER_USECASES_PROXY = 'postUnfollowUserUsecasesProxy';
+  static POST_POST_USECASES_PROXY = 'postPostUsecasesProxy';
+  static GET_POST_USECASES_PROXY = 'getPostUsecasesProxy';
+  static GET_POSTS_USECASES_PROXY = 'getPostsUsecasesProxy';
+  static GET_POST_BY_USER_USECASES_PROXY = 'getPostByUserUsecasesProxy';
 
   static register(): DynamicModule {
     return {
@@ -22,14 +28,18 @@ export class UsecasesProxyModule {
         {
           inject: [LoggerService, DatabaseUserRepository],
           provide: UsecasesProxyModule.GET_USER_USECASES_PROXY,
-          useFactory: (userRepository: DatabaseUserRepository) =>
-            new UseCaseProxy(new GetUserUseCases(userRepository)),
+          useFactory: (
+            logger: LoggerService,
+            userRepository: DatabaseUserRepository,
+          ) => new UseCaseProxy(new GetUserUseCases(logger, userRepository)),
         },
         {
           inject: [LoggerService, DatabaseUserRepository],
           provide: UsecasesProxyModule.GET_USERS_USECASES_PROXY,
-          useFactory: (userRepository: DatabaseUserRepository) =>
-            new UseCaseProxy(new GetUsersUseCases(userRepository)),
+          useFactory: (
+            logger: LoggerService,
+            userRepository: DatabaseUserRepository,
+          ) => new UseCaseProxy(new GetUsersUseCases(logger, userRepository)),
         },
       ],
       exports: [

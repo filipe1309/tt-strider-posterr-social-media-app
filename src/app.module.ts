@@ -6,7 +6,13 @@ import { ExceptionsModule } from './infrastructure/exceptions/exceptions.module'
 import { RepositoriesModule } from './infrastructure/repositories/repositories.module';
 
 @Module({
-  imports: [EnvironmentConfigModule, TypeOrmConfigModule, LoggerModule, ExceptionsModule, RepositoriesModule],
+  imports: [
+    EnvironmentConfigModule,
+    TypeOrmConfigModule,
+    LoggerModule,
+    ExceptionsModule,
+    RepositoriesModule,
+  ],
   controllers: [],
   providers: [],
 })

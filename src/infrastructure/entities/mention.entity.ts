@@ -1,7 +1,7 @@
 import { Entity, PrimaryColumn } from 'typeorm';
 
 @Entity()
-export class Follower {
+export class Mention {
   @PrimaryColumn('uuid')
   post_id_from: string;
 

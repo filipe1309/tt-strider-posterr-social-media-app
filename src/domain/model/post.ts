@@ -9,6 +9,6 @@ export class PostModel {
   user_id: string;
   content: string;
   post_id_from?: string;
-  type: PostType;
+  type: string;
   created_at: Date;
 }

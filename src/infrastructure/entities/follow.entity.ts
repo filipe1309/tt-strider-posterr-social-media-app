@@ -1,7 +1,7 @@
 import { CreateDateColumn, Entity, PrimaryColumn } from 'typeorm';
 
 @Entity()
-export class Follower {
+export class Follow {
   @PrimaryColumn('uuid')
   follower_id: string;
 

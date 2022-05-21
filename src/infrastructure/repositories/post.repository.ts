@@ -29,7 +29,7 @@ export class DatabasePostRepository implements PostRepository {
   }
   async findByUserId(
     user_id: string,
-    skip: number,
+    skip = 0,
     amount = 5,
   ): Promise<PostModel[]> {
     const posts = await this.postEntityRepository.find({

@@ -1,9 +1,17 @@
 import { DynamicModule, Module } from '@nestjs/common';
+import { CreatePostUseCases } from 'src/usecases/post/createPost.usecases';
+import { GetPostUseCases } from 'src/usecases/post/getPost.usecases';
+import { GetPostsUseCases } from 'src/usecases/post/getPosts.usecases';
+import { GetPostsByUserUseCases } from 'src/usecases/post/getPostsByUser.usecases';
+import { FollowUserUseCases } from 'src/usecases/user/followUser.usecases';
+import { UnfollowUserUseCases } from 'src/usecases/user/unfollowUser.usecases';
 import { GetUserUseCases } from '../../usecases/user/getUser.usecases';
 import { GetUsersUseCases } from '../../usecases/user/getUsers.usecases';
 import { ExceptionsModule } from '../exceptions/exceptions.module';
 import { LoggerModule } from '../logger/logger.module';
 import { LoggerService } from '../logger/logger.service';
+import { DatabaseFollowRepository } from '../repositories/follow.repository';
+import { DatabasePostRepository } from '../repositories/post.repository';
 import { RepositoriesModule } from '../repositories/repositories.module';
 import { DatabaseUserRepository } from '../repositories/user.repository';
 import { UseCaseProxy } from './usecases-proxy';
@@ -19,7 +27,7 @@ export class UsecasesProxyModule {
   static POST_POST_USECASES_PROXY = 'postPostUsecasesProxy';
   static GET_POST_USECASES_PROXY = 'getPostUsecasesProxy';
   static GET_POSTS_USECASES_PROXY = 'getPostsUsecasesProxy';
-  static GET_POST_BY_USER_USECASES_PROXY = 'getPostByUserUsecasesProxy';
+  static GET_POSTS_BY_USER_USECASES_PROXY = 'getPostsByUserUsecasesProxy';
 
   static register(): DynamicModule {
     return {
@@ -41,10 +49,71 @@ export class UsecasesProxyModule {
             userRepository: DatabaseUserRepository,
           ) => new UseCaseProxy(new GetUsersUseCases(logger, userRepository)),
         },
+        {
+          inject: [LoggerService, DatabaseFollowRepository],
+          provide: UsecasesProxyModule.POST_FOLLOW_USER_USECASES_PROXY,
+          useFactory: (
+            logger: LoggerService,
+            followRepository: DatabaseFollowRepository,
+          ) =>
+            new UseCaseProxy(new FollowUserUseCases(logger, followRepository)),
+        },
+        {
+          inject: [LoggerService, DatabaseFollowRepository],
+          provide: UsecasesProxyModule.POST_UNFOLLOW_USER_USECASES_PROXY,
+          useFactory: (
+            logger: LoggerService,
+            followRepository: DatabaseFollowRepository,
+          ) =>
+            new UseCaseProxy(
+              new UnfollowUserUseCases(logger, followRepository),
+            ),
+        },
+        {
+          inject: [LoggerService, DatabasePostRepository],
+          provide: UsecasesProxyModule.POST_POST_USECASES_PROXY,
+          useFactory: (
+            logger: LoggerService,
+            postRepository: DatabasePostRepository,
+          ) => new UseCaseProxy(new CreatePostUseCases(logger, postRepository)),
+        },
+        {
+          inject: [LoggerService, DatabasePostRepository],
+          provide: UsecasesProxyModule.GET_POST_USECASES_PROXY,
+          useFactory: (
+            logger: LoggerService,
+            postRepository: DatabasePostRepository,
+          ) => new UseCaseProxy(new GetPostUseCases(logger, postRepository)),
+        },
+        {
+          inject: [LoggerService, DatabasePostRepository],
+          provide: UsecasesProxyModule.GET_POSTS_USECASES_PROXY,
+          useFactory: (
+            logger: LoggerService,
+            postRepository: DatabasePostRepository,
+          ) => new UseCaseProxy(new GetPostsUseCases(logger, postRepository)),
+        },
+        {
+          inject: [LoggerService, DatabasePostRepository],
+          provide: UsecasesProxyModule.GET_POSTS_BY_USER_USECASES_PROXY,
+          useFactory: (
+            logger: LoggerService,
+            postRepository: DatabasePostRepository,
+          ) =>
+            new UseCaseProxy(
+              new GetPostsByUserUseCases(logger, postRepository),
+            ),
+        },
       ],
       exports: [
         UsecasesProxyModule.GET_USER_USECASES_PROXY,
         UsecasesProxyModule.GET_USERS_USECASES_PROXY,
+        UsecasesProxyModule.POST_FOLLOW_USER_USECASES_PROXY,
+        UsecasesProxyModule.POST_UNFOLLOW_USER_USECASES_PROXY,
+        UsecasesProxyModule.POST_POST_USECASES_PROXY,
+        UsecasesProxyModule.GET_POST_USECASES_PROXY,
+        UsecasesProxyModule.GET_POSTS_USECASES_PROXY,
+        UsecasesProxyModule.GET_POSTS_BY_USER_USECASES_PROXY,
       ],
     };
   }

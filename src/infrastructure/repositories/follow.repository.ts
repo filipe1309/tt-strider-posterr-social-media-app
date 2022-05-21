@@ -18,10 +18,10 @@ export class DatabaseFollowRepository implements FollowRepository {
     return followers.map((follower) => this.toFollow(follower));
   }
   async getFollowingById(id: string): Promise<FollowModel[]> {
-    const followers = await this.followEntityRepository.find({
+    const following = await this.followEntityRepository.find({
       where: { follower_id: id },
     });
-    return followers.map((follower) => this.toFollow(follower));
+    return following.map((followed) => this.toFollow(followed));
   }
   async follow(follow: FollowModel): Promise<FollowModel> {
     const result = await this.followEntityRepository.save(

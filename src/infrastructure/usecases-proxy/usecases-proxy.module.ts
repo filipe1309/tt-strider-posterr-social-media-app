@@ -44,12 +44,20 @@ export class UsecasesProxyModule {
       module: UsecasesProxyModule,
       providers: [
         {
-          inject: [LoggerService, DatabaseUserRepository],
+          inject: [
+            LoggerService,
+            DatabaseUserRepository,
+            DatabaseFollowRepository,
+          ],
           provide: UsecasesProxyModule.GET_USER_USECASES_PROXY,
           useFactory: (
             logger: LoggerService,
             userRepository: DatabaseUserRepository,
-          ) => new UseCaseProxy(new GetUserUseCases(logger, userRepository)),
+            followRepository: DatabaseFollowRepository,
+          ) =>
+            new UseCaseProxy(
+              new GetUserUseCases(logger, userRepository, followRepository),
+            ),
         },
         {
           inject: [LoggerService, DatabaseUserRepository],

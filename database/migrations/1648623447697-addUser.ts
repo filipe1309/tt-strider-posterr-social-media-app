@@ -45,12 +45,16 @@ export class addUser1648623447697 implements MigrationInterface {
     );
     await queryRunner.manager.insert(Follow, [
       {
-        followed_id: 'b83f20a7-3d8a-4d74-9493-3434f6bd1d3c',
         follower_id: 'f8256712-0a20-4a0c-ac56-d050c7345ab7',
+        followed_id: 'b83f20a7-3d8a-4d74-9493-3434f6bd1d3c',
       },
       {
-        followed_id: 'b83f20a7-3d8a-4d74-9493-3434f6bd1d3c',
         follower_id: '4e7af1b7-4efd-4962-8df8-1766a2a77367',
+        followed_id: 'b83f20a7-3d8a-4d74-9493-3434f6bd1d3c',
+      },
+      {
+        follower_id: 'b83f20a7-3d8a-4d74-9493-3434f6bd1d3c',
+        followed_id: '4e7af1b7-4efd-4962-8df8-1766a2a77367',
       },
     ]);
     await queryRunner.query(

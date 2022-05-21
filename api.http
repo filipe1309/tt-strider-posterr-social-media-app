@@ -27,4 +27,40 @@ Content-Type: application/json
     "followed_id": "f8256712-0a20-4a0c-ac56-d050c7345ab7"
 }
 
-# Create Post
+### Create Post
+
+POST http://localhost:3000/post
+Content-Type: application/json
+
+{
+    "user_id": "b83f20a7-3d8a-4d74-9493-3434f6bd1d3c",
+    "content": "12 Post",
+    "type": "POST"
+}
+
+### Create Repost
+
+POST http://localhost:3000/post
+Content-Type: application/json
+
+{
+    "user_id": "b83f20a7-3d8a-4d74-9493-3434f6bd1d3c",
+    "content": "Repost Post DB 3",
+    "type": "REPOST",
+    "post_id_from": "d5ee7662-e486-4898-ac9b-1e9903e1d916"
+}
+
+### Get Posts default (skip = 0, amount = 10)
+
+GET http://localhost:3000/post/
+
+### Get Posts with filters (skip, amount)
+
+GET http://localhost:3000/post/?skip=8&amount=3
+
+
+### Get Post By Id
+
+GET http://localhost:3000/post/076f1913-9436-434e-8afe-d59a97478b87
+
+

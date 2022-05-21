@@ -83,8 +83,11 @@ GET http://localhost:3000/post/
 GET http://localhost:3000/post/?skip=8&amount=3
 
 
-### Get Post By Id
+### Get Post By Post Id
 
 GET http://localhost:3000/post/076f1913-9436-434e-8afe-d59a97478b87
 
 
+### Get Posts of Followeds By Follower Id
+
+GET http://localhost:3000/post/follower/b83f20a7-3d8a-4d74-9493-3434f6bd1d3c

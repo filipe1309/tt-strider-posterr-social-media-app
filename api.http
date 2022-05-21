@@ -87,6 +87,14 @@ GET http://localhost:3000/post/?skip=8&amount=3
 
 GET http://localhost:3000/post/076f1913-9436-434e-8afe-d59a97478b87
 
+### Get Post By User Id
+
+GET http://localhost:3000/post/user/b83f20a7-3d8a-4d74-9493-3434f6bd1d3c
+
+### Get Post By User Id wit filters (skip, amount)
+
+GET http://localhost:3000/post/user/b83f20a7-3d8a-4d74-9493-3434f6bd1d3c?amount=1&skip=1
+
 
 ### Get Posts of Followeds By Follower Id
 

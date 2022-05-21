@@ -62,6 +62,18 @@ export class PostController {
     return posts.map((post) => new PostPresenter(post));
   }
 
+  @Get('user/:id')
+  async getPostsByUser(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Query() query: { skip: number; amount: number },
+  ) {
+    const { skip, amount } = query;
+    const posts = await this.getPostsByUserUsecasesProxy
+      .getInstance()
+      .execute(id, skip, amount);
+    return posts.map((post) => new PostPresenter(post));
+  }
+
   @Post()
   async CreatePost(@Body() postDto: PostDto) {
     const { user_id, content, type, post_id_from } = postDto;

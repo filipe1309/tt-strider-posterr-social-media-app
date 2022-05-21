@@ -2,6 +2,7 @@ import { DynamicModule, Module } from '@nestjs/common';
 import { CreatePostUseCases } from 'src/usecases/post/createPost.usecases';
 import { GetPostUseCases } from 'src/usecases/post/getPost.usecases';
 import { GetPostsUseCases } from 'src/usecases/post/getPosts.usecases';
+import { GetPostsByFollowerUseCases } from 'src/usecases/post/getPostsByFollower.usecases';
 import { GetPostsByUserUseCases } from 'src/usecases/post/getPostsByUser.usecases';
 import { FollowUserUseCases } from 'src/usecases/user/followUser.usecases';
 import { UnfollowUserUseCases } from 'src/usecases/user/unfollowUser.usecases';
@@ -34,6 +35,8 @@ export class UsecasesProxyModule {
   static GET_POST_USECASES_PROXY = 'getPostUsecasesProxy';
   static GET_POSTS_USECASES_PROXY = 'getPostsUsecasesProxy';
   static GET_POSTS_BY_USER_USECASES_PROXY = 'getPostsByUserUsecasesProxy';
+  static GET_POSTS_BY_FOLLOWER_USECASES_PROXY =
+    'getPostsByFollowerUsecasesProxy';
 
   static register(): DynamicModule {
     return {
@@ -110,6 +113,26 @@ export class UsecasesProxyModule {
               new GetPostsByUserUseCases(logger, postRepository),
             ),
         },
+        {
+          inject: [
+            LoggerService,
+            DatabasePostRepository,
+            DatabaseFollowRepository,
+          ],
+          provide: UsecasesProxyModule.GET_POSTS_BY_FOLLOWER_USECASES_PROXY,
+          useFactory: (
+            logger: LoggerService,
+            postRepository: DatabasePostRepository,
+            followRepository: DatabaseFollowRepository,
+          ) =>
+            new UseCaseProxy(
+              new GetPostsByFollowerUseCases(
+                logger,
+                postRepository,
+                followRepository,
+              ),
+            ),
+        },
       ],
       exports: [
         UsecasesProxyModule.GET_USER_USECASES_PROXY,
@@ -120,6 +143,7 @@ export class UsecasesProxyModule {
         UsecasesProxyModule.GET_POST_USECASES_PROXY,
         UsecasesProxyModule.GET_POSTS_USECASES_PROXY,
         UsecasesProxyModule.GET_POSTS_BY_USER_USECASES_PROXY,
+        UsecasesProxyModule.GET_POSTS_BY_FOLLOWER_USECASES_PROXY,
       ],
     };
   }

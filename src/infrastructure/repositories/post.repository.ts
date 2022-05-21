@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { PostModel, PostType } from 'src/domain/model/post';
 import { PostRepository } from 'src/domain/repositories/postRepository.interface';
 import { Post } from '../entities/post.entity';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 
 @Injectable()
 export class DatabasePostRepository implements PostRepository {
@@ -33,7 +33,20 @@ export class DatabasePostRepository implements PostRepository {
     amount = 5,
   ): Promise<PostModel[]> {
     const posts = await this.postEntityRepository.find({
-      where: { user_id: user_id },
+      where: { user_id },
+      skip,
+      take: amount,
+    });
+    return posts.map((post) => this.toPost(post));
+  }
+
+  async findByUsersId(
+    users_id: string[],
+    skip: number,
+    amount = 5,
+  ): Promise<PostModel[]> {
+    const posts = await this.postEntityRepository.find({
+      where: { id: In([...users_id]) },
       skip,
       take: amount,
     });
@@ -56,7 +69,9 @@ export class DatabasePostRepository implements PostRepository {
   private toPostEntity(post: PostModel): Post {
     const postEntity: Post = new Post();
 
-    postEntity.id = post.id;
+    if (post.id) {
+      postEntity.id = post.id;
+    }
     postEntity.user_id = post.user_id;
     postEntity.content = post.content;
     postEntity.post_id_from = post.post_id_from;

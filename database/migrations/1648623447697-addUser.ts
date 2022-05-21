@@ -33,7 +33,7 @@ export class addUser1648623447697 implements MigrationInterface {
       `CREATE TABLE "public"."follow" ("follower_id" varchar(36) NOT NULL, "followed_id" varchar(36) NOT NULL, "created_at" TIMESTAMP NOT NULL DEFAULT now(), CONSTRAINT "PK_03b91d2b8321aa7ba32257dc322" PRIMARY KEY ("follower_id", followed_id))`,
     );
     await queryRunner.query(
-      `CREATE TABLE "public"."post" ("id" uuid DEFAULT uuid_generate_v4 () NOT NULL, "user_id" varchar(36) NOT NULL, "content" character varying(255), "post_id_from" varchar(36), type post_type, "created_at" TIMESTAMP NOT NULL DEFAULT now(), CONSTRAINT "PK_e87731bafd682f5a84e2449470f" PRIMARY KEY ("id"))`,
+      `CREATE TABLE "public"."post" ("id" uuid DEFAULT uuid_generate_v4 () NOT NULL, "user_id" varchar(36) NOT NULL, "content" character varying(777), "post_id_from" varchar(36), type post_type, "created_at" TIMESTAMP NOT NULL DEFAULT now(), CONSTRAINT "PK_e87731bafd682f5a84e2449470f" PRIMARY KEY ("id"))`,
     );
     await queryRunner.manager.insert(Post, [
       {

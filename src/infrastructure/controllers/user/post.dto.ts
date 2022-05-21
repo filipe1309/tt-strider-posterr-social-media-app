@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsNotEmpty, IsString, MaxLength } from 'class-validator';
 import { PostType } from 'src/domain/model/post';
 
 export class PostDto {
@@ -7,6 +7,9 @@ export class PostDto {
   readonly user_id: string;
 
   @IsString()
+  @MaxLength(10, {
+    message: 'Content is too long, max allowed: 777 chars.',
+  })
   readonly content: string;
 
   @IsString()

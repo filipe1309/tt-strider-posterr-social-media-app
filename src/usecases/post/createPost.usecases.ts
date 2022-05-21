@@ -18,6 +18,11 @@ export class CreatePostUseCases {
     if (await this.limitExceded(user_id)) {
       throw new ForbiddenException('Number of posts (5) exceded!');
     }
+
+    if (content.length > 777) {
+      throw new ForbiddenException('Number of chars of content (777) exceded!');
+    }
+
     const post = new PostModel();
     post.content = content;
     post.user_id = user_id;

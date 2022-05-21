@@ -38,6 +38,17 @@ Content-Type: application/json
     "type": "POST"
 }
 
+### Create Post, content size exceded
+
+POST http://localhost:3000/post
+Content-Type: application/json
+
+{
+    "user_id": "b83f20a7-3d8a-4d74-9493-3434f6bd1d3c",
+    "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut risus massa, aliquet non condimentum nec, rhoncus vel erat. Proin non vehicula lacus. Ut eget sagittis libero, nec hendrerit dui. Etiam enim mi, pulvinar vitae leo ac, pellentesque porta lacus. Vestibulum libero tellus, vestibulum sit amet velit eu, ornare varius enim. Etiam blandit arcu lorem, et viverra lorem tempor sit amet. Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sodales tincidunt velit, in mattis tellus vehicula ut. Suspendisse potenti. Nunc dictum massa eu diam tristique, vitae suscipit lectus eleifend. Mauris tristique eros quis egestas congue. Cras sed imperdiet turpis. Duis dapibus vel leo vel tempus. Nullam non metus mauris. Sed vel condimentum augue. Maecenas sed massa sed massa pretium ornare dapibus convallis sapien. Sed molestie elit a neque posuere, nec maximus nibh egestas. Quisque efficitur justo ut nulla finibus, vehicula pretium massa pretium. Curabitur ultricies dui id posuere porta ante.",
+    "type": "POST"
+}
+
 ### Create Repost
 
 POST http://localhost:3000/post
@@ -49,6 +60,7 @@ Content-Type: application/json
     "type": "REPOST",
     "post_id_from": "d5ee7662-e486-4898-ac9b-1e9903e1d916"
 }
+
 
 ### Get Posts default (skip = 0, amount = 10)
 

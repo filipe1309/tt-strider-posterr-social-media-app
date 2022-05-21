@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   Inject,
+  Param,
   ParseUUIDPipe,
   Post,
   Query,
@@ -16,7 +17,7 @@ import { FollowUserDto } from './followUser.dto';
 import { UnfollowUserUseCases } from 'src/usecases/user/unfollowUser.usecases';
 import { UserPresenter } from './user.presenter';
 
-@Controller('todo')
+@Controller('user')
 export class UserController {
   constructor(
     @Inject(UsecasesProxyModule.GET_USER_USECASES_PROXY)
@@ -29,13 +30,13 @@ export class UserController {
     private readonly unfollowUserUseCasesProxy: UseCaseProxy<UnfollowUserUseCases>,
   ) {}
 
-  @Get('user')
-  async getUser(@Query('id', ParseUUIDPipe) id: string) {
+  @Get(':id')
+  async getUser(@Param('id', ParseUUIDPipe) id: string) {
     const user = await this.getUserUseCasesProxy.getInstance().execute(id);
     return new UserPresenter(user);
   }
 
-  @Get('users')
+  @Get()
   async getUsers() {
     const users = await this.getUsersUseCasesProxy.getInstance().execute();
     return users.map((user) => new UserPresenter(user));

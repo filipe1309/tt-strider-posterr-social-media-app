@@ -26,4 +26,6 @@ export class User {
   followers?: string[];
 
   following?: string[];
+
+  posts?: number;
 }

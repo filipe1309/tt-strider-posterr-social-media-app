@@ -8,6 +8,7 @@ export class UserPresenter {
   updated_at: Date;
   followers?: string[];
   following?: string[];
+  posts?: number;
 
   constructor(user: UserModel) {
     this.id = user.id;
@@ -17,5 +18,6 @@ export class UserPresenter {
     this.updated_at = user.updated_at;
     this.followers = user.followers;
     this.following = user.following;
+    this.posts = user.posts;
   }
 }

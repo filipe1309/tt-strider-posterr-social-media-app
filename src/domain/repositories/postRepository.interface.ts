@@ -9,5 +9,9 @@ export interface PostRepository {
     skip?: number,
     amount?: number,
   ): Promise<PostModel[]>;
-  findByUsersId(users_id: string[], skip: number, amount): Promise<PostModel[]>;
+  findByUsersId(
+    users_id: string[],
+    skip?: number,
+    amount?: number,
+  ): Promise<PostModel[]>;
 }

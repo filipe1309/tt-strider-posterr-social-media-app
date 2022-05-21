@@ -48,15 +48,22 @@ export class UsecasesProxyModule {
             LoggerService,
             DatabaseUserRepository,
             DatabaseFollowRepository,
+            DatabasePostRepository,
           ],
           provide: UsecasesProxyModule.GET_USER_USECASES_PROXY,
           useFactory: (
             logger: LoggerService,
             userRepository: DatabaseUserRepository,
             followRepository: DatabaseFollowRepository,
+            postRepository: DatabasePostRepository,
           ) =>
             new UseCaseProxy(
-              new GetUserUseCases(logger, userRepository, followRepository),
+              new GetUserUseCases(
+                logger,
+                userRepository,
+                followRepository,
+                postRepository,
+              ),
             ),
         },
         {

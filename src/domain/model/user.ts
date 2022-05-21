@@ -6,4 +6,5 @@ export class UserModel {
   updated_at: Date;
   followers?: string[];
   following?: string[];
+  posts?: number;
 }

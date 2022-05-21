@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
+import { EnvironmentConfigModule } from '../environment-config/environment-config.module';
 import { EnvironmentConfigService } from '../environment-config/environment-config.service';
 
 export const getTypeOrmModuleOptions = (
@@ -15,15 +16,20 @@ export const getTypeOrmModuleOptions = (
     entities: [__dirname + './../../**/*.entity{.ts,.js}'],
     synchronize: false,
     schema: process.env.DATABASE_SCHEMA,
-    ssl: {
-      rejectUnauthorized: false,
+    migrationsRun: true,
+    migrations: [__dirname + '/migrations/**/*{.ts,.js}'],
+    cli: {
+      migrationsDir: 'src/migrations',
     },
+    // ssl: {
+    //   rejectUnauthorized: false,
+    // },
   } as TypeOrmModuleOptions);
 
 @Module({
   imports: [
     TypeOrmModule.forRootAsync({
-      imports: [EnvironmentConfigService],
+      imports: [EnvironmentConfigModule],
       inject: [EnvironmentConfigService],
       useFactory: getTypeOrmModuleOptions,
     }),

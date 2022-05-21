@@ -7,6 +7,7 @@ import { FollowUserUseCases } from 'src/usecases/user/followUser.usecases';
 import { UnfollowUserUseCases } from 'src/usecases/user/unfollowUser.usecases';
 import { GetUserUseCases } from '../../usecases/user/getUser.usecases';
 import { GetUsersUseCases } from '../../usecases/user/getUsers.usecases';
+import { EnvironmentConfigModule } from '../config/environment-config/environment-config.module';
 import { ExceptionsModule } from '../exceptions/exceptions.module';
 import { LoggerModule } from '../logger/logger.module';
 import { LoggerService } from '../logger/logger.service';
@@ -17,7 +18,12 @@ import { DatabaseUserRepository } from '../repositories/user.repository';
 import { UseCaseProxy } from './usecases-proxy';
 
 @Module({
-  imports: [LoggerModule, RepositoriesModule, ExceptionsModule],
+  imports: [
+    LoggerModule,
+    RepositoriesModule,
+    ExceptionsModule,
+    EnvironmentConfigModule,
+  ],
 })
 export class UsecasesProxyModule {
   static GET_USER_USECASES_PROXY = 'getUserUsecasesProxy';

@@ -15,6 +15,9 @@ async function bootstrap() {
   app.useGlobalInterceptors(new LoggingInterceptor(new LoggerService()));
   app.useGlobalInterceptors(new ResponseInterceptor());
 
+  // base routing
+  // app.setGlobalPrefix('api/v1');
+
   await app.listen(3000);
 }
 bootstrap();

@@ -7,7 +7,7 @@ export class PostDto {
   readonly user_id: string;
 
   @IsString()
-  @MaxLength(10, {
+  @MaxLength(777, {
     message: 'Content is too long, max allowed: 777 chars.',
   })
   readonly content: string;

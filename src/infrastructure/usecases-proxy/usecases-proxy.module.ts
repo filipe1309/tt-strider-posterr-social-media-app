@@ -13,6 +13,7 @@ import { ExceptionsModule } from '../exceptions/exceptions.module';
 import { LoggerModule } from '../logger/logger.module';
 import { LoggerService } from '../logger/logger.service';
 import { DatabaseFollowRepository } from '../repositories/follow.repository';
+import { DatabaseMentionRepository } from '../repositories/mention.repository';
 import { DatabasePostRepository } from '../repositories/post.repository';
 import { RepositoriesModule } from '../repositories/repositories.module';
 import { DatabaseUserRepository } from '../repositories/user.repository';
@@ -79,12 +80,20 @@ export class UsecasesProxyModule {
             ),
         },
         {
-          inject: [LoggerService, DatabasePostRepository],
+          inject: [
+            LoggerService,
+            DatabasePostRepository,
+            DatabaseMentionRepository,
+          ],
           provide: UsecasesProxyModule.POST_POST_USECASES_PROXY,
           useFactory: (
             logger: LoggerService,
             postRepository: DatabasePostRepository,
-          ) => new UseCaseProxy(new CreatePostUseCases(logger, postRepository)),
+            mentionRepository: DatabaseMentionRepository,
+          ) =>
+            new UseCaseProxy(
+              new CreatePostUseCases(logger, postRepository, mentionRepository),
+            ),
         },
         {
           inject: [LoggerService, DatabasePostRepository],

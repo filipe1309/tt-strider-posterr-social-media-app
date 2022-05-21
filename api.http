@@ -58,7 +58,19 @@ Content-Type: application/json
     "user_id": "b83f20a7-3d8a-4d74-9493-3434f6bd1d3c",
     "content": "Repost Post DB 3",
     "type": "REPOST",
-    "post_id_from": "d5ee7662-e486-4898-ac9b-1e9903e1d916"
+    "post_id_from": "5106d0b9-dc63-449e-b321-e2becaba9b79"
+}
+
+### Create Quote
+
+POST http://localhost:3000/post
+Content-Type: application/json
+
+{
+    "user_id": "b83f20a7-3d8a-4d74-9493-3434f6bd1d3c",
+    "content": "Quote Post DB 3",
+    "type": "QUOTE",
+    "post_id_from": "5106d0b9-dc63-449e-b321-e2becaba9b79"
 }
 
 

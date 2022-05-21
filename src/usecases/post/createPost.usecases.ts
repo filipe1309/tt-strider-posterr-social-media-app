@@ -1,12 +1,15 @@
-import { ForbiddenException } from '@nestjs/common';
+import { ForbiddenException, NotFoundException } from '@nestjs/common';
 import { ILogger } from 'src/domain/logger/logger.interface';
 import { PostModel, PostType } from 'src/domain/model/post';
+import { MentionRepository } from 'src/domain/repositories/mentionRepository.interface';
 import { PostRepository } from 'src/domain/repositories/postRepository.interface';
+import { Mention } from 'src/infrastructure/entities/mention.entity';
 
 export class CreatePostUseCases {
   constructor(
     private readonly logger: ILogger,
     private readonly postRepository: PostRepository,
+    private readonly mentionRepository: MentionRepository,
   ) {}
 
   async execute(
@@ -23,16 +26,33 @@ export class CreatePostUseCases {
       throw new ForbiddenException('Number of chars of content (777) exceded!');
     }
 
+    if (post_id_from) {
+      try {
+        await this.postRepository.findOne(post_id_from);
+      } catch (error) {
+        throw new NotFoundException("Post (post_id_from) doesn't exists!");
+      }
+    }
+
     const post = new PostModel();
     post.content = content;
     post.user_id = user_id;
     post.type = type;
     post.post_id_from = post_id_from;
+
     const result = await this.postRepository.insert(post);
     this.logger.log(
       'CreatePostUseCases execute',
       'New post have been inserted',
     );
+
+    if (type !== PostType.POST) {
+      const mention: Mention = {
+        post_id_from: post_id_from,
+        post_id_to: result.id.toString(),
+      };
+      await this.mentionRepository.insert(mention);
+    }
     return result;
   }
 

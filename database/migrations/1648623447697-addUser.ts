@@ -1,3 +1,4 @@
+import { Follow } from 'src/infrastructure/entities/follow.entity';
 import { Post } from 'src/infrastructure/entities/post.entity';
 import { User } from 'src/infrastructure/entities/user.entity';
 import { MigrationInterface, QueryRunner } from 'typeorm';
@@ -25,6 +26,16 @@ export class addUser1648623447697 implements MigrationInterface {
         name: 'Bob Dylan',
         username: 'bob.dylan',
       },
+      {
+        id: '4e7af1b7-4efd-4962-8df8-1766a2a77367',
+        name: 'Will Woll',
+        username: 'will.woll',
+      },
+      {
+        id: '31422a8a-f8a4-4d1d-b589-848e0be5fe43',
+        name: 'Dont Follow',
+        username: 'dont.follow',
+      },
     ]);
     await queryRunner.query(
       `CREATE UNIQUE INDEX "IDX_b67337b7f8aa8406e936c2ff75" ON "public"."user" ("username");`,
@@ -32,6 +43,16 @@ export class addUser1648623447697 implements MigrationInterface {
     await queryRunner.query(
       `CREATE TABLE "public"."follow" ("follower_id" varchar(36) NOT NULL, "followed_id" varchar(36) NOT NULL, "created_at" TIMESTAMP NOT NULL DEFAULT now(), CONSTRAINT "PK_03b91d2b8321aa7ba32257dc322" PRIMARY KEY ("follower_id", followed_id))`,
     );
+    await queryRunner.manager.insert(Follow, [
+      {
+        followed_id: 'b83f20a7-3d8a-4d74-9493-3434f6bd1d3c',
+        follower_id: 'f8256712-0a20-4a0c-ac56-d050c7345ab7',
+      },
+      {
+        followed_id: 'b83f20a7-3d8a-4d74-9493-3434f6bd1d3c',
+        follower_id: '4e7af1b7-4efd-4962-8df8-1766a2a77367',
+      },
+    ]);
     await queryRunner.query(
       `CREATE TABLE "public"."post" ("id" uuid DEFAULT uuid_generate_v4 () NOT NULL, "user_id" varchar(36) NOT NULL, "content" character varying(777), "post_id_from" varchar(36), type post_type, "created_at" TIMESTAMP NOT NULL DEFAULT now(), CONSTRAINT "PK_e87731bafd682f5a84e2449470f" PRIMARY KEY ("id"))`,
     );
@@ -49,6 +70,11 @@ export class addUser1648623447697 implements MigrationInterface {
       {
         user_id: 'f8256712-0a20-4a0c-ac56-d050c7345ab7',
         content: 'Post DB 3',
+        type: 'POST',
+      },
+      {
+        user_id: '31422a8a-f8a4-4d1d-b589-848e0be5fe43',
+        content: 'Post DB 4 - Dont Follow',
         type: 'POST',
       },
     ]);

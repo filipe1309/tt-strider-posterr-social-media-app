@@ -1,0 +1,30 @@
+### Get Users
+
+GET http://localhost:3000/user
+
+
+### Get User
+
+GET http://localhost:3000/user/b83f20a7-3d8a-4d74-9493-3434f6bd1d3c
+
+### Follow user
+
+POST http://localhost:3000/user/follow
+Content-Type: application/json
+
+{
+    "follower_id": "b83f20a7-3d8a-4d74-9493-3434f6bd1d3c",
+    "followed_id": "f8256712-0a20-4a0c-ac56-d050c7345ab7"
+}
+
+### Unfollow user
+
+POST http://localhost:3000/user/unfollow
+Content-Type: application/json
+
+{
+    "follower_id": "b83f20a7-3d8a-4d74-9493-3434f6bd1d3c",
+    "followed_id": "f8256712-0a20-4a0c-ac56-d050c7345ab7"
+}
+
+# Create Post

@@ -1,5 +1,5 @@
 
-# <p align="center">Posterr - Social Media App with Clean Arch</p>
+# <p align="center">Posterr - Social Media App with Clean Arch - Backend - Filipe Leuch Bonfim</p>
 
 <p align="center">
     <img src="https://img.shields.io/badge/Code-NestJS-informational?style=flat-square&logo=nestjs&color=E0234E&logoColor=E0234E" alt="NestJS" />

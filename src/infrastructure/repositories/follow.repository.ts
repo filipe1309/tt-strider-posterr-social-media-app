@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { FollowModel } from 'src/domain/model/follow';
-import { FollowRepository } from 'src/domain/repositories/followRepository.interface';
+import { FollowModel } from '../../domain/model/follow';
+import { FollowRepository } from '../../domain/repositories/followRepository.interface';
 import { Repository } from 'typeorm';
 import { Follow } from '../entities/follow.entity';
 

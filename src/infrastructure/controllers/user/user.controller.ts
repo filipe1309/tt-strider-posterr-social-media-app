@@ -10,11 +10,11 @@ import {
 } from '@nestjs/common';
 import { UseCaseProxy } from '../../usecases-proxy/usecases-proxy';
 import { UsecasesProxyModule } from '../../usecases-proxy/usecases-proxy.module';
-import { GetUserUseCases } from 'src/usecases/user/getUser.usecases';
-import { GetUsersUseCases } from 'src/usecases/user/getUsers.usecases';
-import { FollowUserUseCases } from 'src/usecases/user/followUser.usecases';
+import { GetUserUseCases } from '../../../usecases/user/getUser.usecases';
+import { GetUsersUseCases } from '../../../usecases/user/getUsers.usecases';
+import { FollowUserUseCases } from '../../../usecases/user/followUser.usecases';
 import { FollowUserDto } from './followUser.dto';
-import { UnfollowUserUseCases } from 'src/usecases/user/unfollowUser.usecases';
+import { UnfollowUserUseCases } from '../../../usecases/user/unfollowUser.usecases';
 import { UserPresenter } from './user.presenter';
 
 @Controller('user')

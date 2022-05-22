@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { MentionModel } from 'src/domain/model/mention';
-import { MentionRepository } from 'src/domain/repositories/mentionRepository.interface';
+import { MentionModel } from '../../domain/model/mention';
+import { MentionRepository } from '../../domain/repositories/mentionRepository.interface';
 import { Repository } from 'typeorm';
 import { Mention } from '../entities/mention.entity';
 

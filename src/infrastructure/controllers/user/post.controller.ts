@@ -10,13 +10,13 @@ import {
 } from '@nestjs/common';
 import { UseCaseProxy } from '../../usecases-proxy/usecases-proxy';
 import { UsecasesProxyModule } from '../../usecases-proxy/usecases-proxy.module';
-import { CreatePostUseCases } from 'src/usecases/post/createPost.usecases';
-import { GetPostUseCases } from 'src/usecases/post/getPost.usecases';
-import { GetPostsUseCases } from 'src/usecases/post/getPosts.usecases';
-import { GetPostsByUserUseCases } from 'src/usecases/post/getPostsByUser.usecases';
+import { CreatePostUseCases } from '../../../usecases/post/createPost.usecases';
+import { GetPostUseCases } from '../../../usecases/post/getPost.usecases';
+import { GetPostsUseCases } from '../../../usecases/post/getPosts.usecases';
+import { GetPostsByUserUseCases } from '../../../usecases/post/getPostsByUser.usecases';
 import { PostPresenter } from './post.presenter';
 import { PostDto } from './post.dto';
-import { GetPostsByFollowerUseCases } from 'src/usecases/post/getPostsByFollower.usecases';
+import { GetPostsByFollowerUseCases } from '../../../usecases/post/getPostsByFollower.usecases';
 
 @Controller('post')
 export class PostController {

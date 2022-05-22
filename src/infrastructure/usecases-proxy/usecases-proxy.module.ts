@@ -1,11 +1,11 @@
 import { DynamicModule, Module } from '@nestjs/common';
-import { CreatePostUseCases } from 'src/usecases/post/createPost.usecases';
-import { GetPostUseCases } from 'src/usecases/post/getPost.usecases';
-import { GetPostsUseCases } from 'src/usecases/post/getPosts.usecases';
-import { GetPostsByFollowerUseCases } from 'src/usecases/post/getPostsByFollower.usecases';
-import { GetPostsByUserUseCases } from 'src/usecases/post/getPostsByUser.usecases';
-import { FollowUserUseCases } from 'src/usecases/user/followUser.usecases';
-import { UnfollowUserUseCases } from 'src/usecases/user/unfollowUser.usecases';
+import { CreatePostUseCases } from '../../usecases/post/createPost.usecases';
+import { GetPostUseCases } from '../../usecases/post/getPost.usecases';
+import { GetPostsUseCases } from '../../usecases/post/getPosts.usecases';
+import { GetPostsByFollowerUseCases } from '../../usecases/post/getPostsByFollower.usecases';
+import { GetPostsByUserUseCases } from '../../usecases/post/getPostsByUser.usecases';
+import { FollowUserUseCases } from '../../usecases/user/followUser.usecases';
+import { UnfollowUserUseCases } from '../../usecases/user/unfollowUser.usecases';
 import { GetUserUseCases } from '../../usecases/user/getUser.usecases';
 import { GetUsersUseCases } from '../../usecases/user/getUsers.usecases';
 import { EnvironmentConfigModule } from '../config/environment-config/environment-config.module';

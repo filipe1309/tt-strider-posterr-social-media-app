@@ -1,4 +1,4 @@
-import { UserModel } from 'src/domain/model/user';
+import { UserModel } from '../../../domain/model/user';
 
 export class UserPresenter {
   id: string;

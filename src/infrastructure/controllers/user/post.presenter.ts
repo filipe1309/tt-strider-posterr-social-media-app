@@ -1,4 +1,4 @@
-import { PostModel } from 'src/domain/model/post';
+import { PostModel } from '../../../domain/model/post';
 
 export class PostPresenter {
   id: string;

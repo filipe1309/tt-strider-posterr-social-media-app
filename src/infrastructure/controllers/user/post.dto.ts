@@ -1,5 +1,5 @@
 import { IsNotEmpty, IsString, MaxLength } from 'class-validator';
-import { PostType } from 'src/domain/model/post';
+import { PostType } from '../../../domain/model/post';
 
 export class PostDto {
   @IsNotEmpty()

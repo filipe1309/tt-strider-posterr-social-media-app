@@ -6,7 +6,6 @@ import {
   Param,
   ParseUUIDPipe,
   Post,
-  Query,
 } from '@nestjs/common';
 import { UseCaseProxy } from '../../usecases-proxy/usecases-proxy';
 import { UsecasesProxyModule } from '../../usecases-proxy/usecases-proxy.module';
@@ -16,8 +15,13 @@ import { FollowUserUseCases } from '../../../usecases/user/followUser.usecases';
 import { FollowUserDto } from './followUser.dto';
 import { UnfollowUserUseCases } from '../../../usecases/user/unfollowUser.usecases';
 import { UserPresenter } from './user.presenter';
+import { ApiExtraModels, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiResponseType } from 'src/infrastructure/common/swagger/response.decorator';
 
 @Controller('user')
+@ApiTags('user')
+@ApiResponse({ status: 500, description: 'Internal error' })
+@ApiExtraModels(UserPresenter)
 export class UserController {
   constructor(
     @Inject(UsecasesProxyModule.GET_USER_USECASES_PROXY)
@@ -31,12 +35,14 @@ export class UserController {
   ) {}
 
   @Get(':id')
+  @ApiResponseType(UserPresenter, false)
   async getUser(@Param('id', ParseUUIDPipe) id: string) {
     const user = await this.getUserUseCasesProxy.getInstance().execute(id);
     return new UserPresenter(user);
   }
 
   @Get()
+  @ApiResponseType(UserPresenter, true)
   async getUsers() {
     const users = await this.getUsersUseCasesProxy.getInstance().execute();
     return users.map((user) => new UserPresenter(user));

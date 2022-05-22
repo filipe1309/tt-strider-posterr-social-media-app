@@ -17,8 +17,13 @@ import { GetPostsByUserUseCases } from '../../../usecases/post/getPostsByUser.us
 import { PostPresenter } from './post.presenter';
 import { PostDto } from './post.dto';
 import { GetPostsByFollowerUseCases } from '../../../usecases/post/getPostsByFollower.usecases';
+import { ApiExtraModels, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiResponseType } from 'src/infrastructure/common/swagger/response.decorator';
 
 @Controller('post')
+@ApiTags('post')
+@ApiResponse({ status: 500, description: 'Internal error' })
+@ApiExtraModels(PostPresenter)
 export class PostController {
   constructor(
     @Inject(UsecasesProxyModule.POST_POST_USECASES_PROXY)
@@ -34,12 +39,14 @@ export class PostController {
   ) {}
 
   @Get(':id')
+  @ApiResponseType(PostPresenter, false)
   async getPost(@Param('id', ParseUUIDPipe) id: string) {
     const post = await this.getPostUsecasesProxy.getInstance().execute(id);
     return new PostPresenter(post);
   }
 
   @Get()
+  @ApiResponseType(PostPresenter, true)
   async getPosts(@Query() query: { skip: number; amount: number }) {
     const { skip, amount } = query;
     console.log('skip', skip);

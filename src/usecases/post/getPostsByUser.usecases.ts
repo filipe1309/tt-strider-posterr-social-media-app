@@ -8,11 +8,7 @@ export class GetPostsByUserUseCases {
     private readonly postRepository: PostRepository,
   ) {}
 
-  async execute(
-    user_id: string,
-    skip: number,
-    amount = 10,
-  ): Promise<PostModel[]> {
+  async execute(user_id: string, skip = 0, amount = 10): Promise<PostModel[]> {
     const result = await this.postRepository.findByUserId(
       user_id,
       skip,

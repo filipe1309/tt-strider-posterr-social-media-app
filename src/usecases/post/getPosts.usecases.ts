@@ -1,6 +1,6 @@
-import { ILogger } from 'src/domain/logger/logger.interface';
-import { PostModel } from 'src/domain/model/post';
-import { PostRepository } from 'src/domain/repositories/postRepository.interface';
+import { ILogger } from '../../domain/logger/logger.interface';
+import { PostModel } from '../../domain/model/post';
+import { PostRepository } from '../../domain/repositories/postRepository.interface';
 
 export class GetPostsUseCases {
   constructor(
@@ -8,7 +8,7 @@ export class GetPostsUseCases {
     private readonly postRepository: PostRepository,
   ) {}
 
-  async execute(skip: number, amount = 10): Promise<PostModel[]> {
+  async execute(skip = 0, amount = 10): Promise<PostModel[]> {
     const result = await this.postRepository.loadByAmount(skip, amount);
     this.logger.log(
       'GetPostsUseCases execute',

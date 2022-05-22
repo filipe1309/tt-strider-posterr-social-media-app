@@ -1,9 +1,9 @@
 import { ForbiddenException, NotFoundException } from '@nestjs/common';
-import { ILogger } from 'src/domain/logger/logger.interface';
-import { PostModel, PostType } from 'src/domain/model/post';
-import { MentionRepository } from 'src/domain/repositories/mentionRepository.interface';
-import { PostRepository } from 'src/domain/repositories/postRepository.interface';
-import { Mention } from 'src/infrastructure/entities/mention.entity';
+import { ILogger } from '../../domain/logger/logger.interface';
+import { PostModel, PostType } from '../../domain/model/post';
+import { MentionRepository } from '../../domain/repositories/mentionRepository.interface';
+import { PostRepository } from '../../domain/repositories/postRepository.interface';
+import { Mention } from '../../infrastructure/entities/mention.entity';
 
 export class CreatePostUseCases {
   constructor(

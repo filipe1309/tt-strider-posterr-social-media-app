@@ -1,6 +1,6 @@
-import { ILogger } from 'src/domain/logger/logger.interface';
-import { PostModel } from 'src/domain/model/post';
-import { PostRepository } from 'src/domain/repositories/postRepository.interface';
+import { ILogger } from '../../domain/logger/logger.interface';
+import { PostModel } from '../../domain/model/post';
+import { PostRepository } from '../../domain/repositories/postRepository.interface';
 
 export class GetPostUseCases {
   constructor(

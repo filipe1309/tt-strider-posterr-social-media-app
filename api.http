@@ -29,7 +29,7 @@ Content-Type: application/json
 
 ### Unfollow user
 
-POST http://localhost:3000/user/unfollow
+DELETE http://localhost:3000/user/unfollow
 Content-Type: application/json
 
 {

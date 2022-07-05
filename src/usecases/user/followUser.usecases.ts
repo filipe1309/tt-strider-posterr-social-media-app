@@ -2,9 +2,11 @@ import { BadRequestException } from '@nestjs/common';
 import { ILogger } from 'src/domain/logger/logger.interface';
 import { FollowModel } from 'src/domain/model/follow';
 import { FollowRepository } from 'src/domain/repositories/followRepository.interface';
+import { ExceptionsService } from 'src/infrastructure/exceptions/exceptions.service';
 
 export class FollowUserUseCases {
   constructor(
+    private readonly exceptionService: ExceptionsService,
     private readonly logger: ILogger,
     private readonly followRepository: FollowRepository,
   ) {}

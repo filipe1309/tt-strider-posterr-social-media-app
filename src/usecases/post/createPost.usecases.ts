@@ -1,4 +1,5 @@
 import { BadRequestException, NotFoundException } from '@nestjs/common';
+import { ExceptionsService } from 'src/infrastructure/exceptions/exceptions.service';
 import { ILogger } from '../../domain/logger/logger.interface';
 import { PostModel, PostType } from '../../domain/model/post';
 import { MentionRepository } from '../../domain/repositories/mentionRepository.interface';
@@ -7,6 +8,7 @@ import { Mention } from '../../infrastructure/entities/mention.entity';
 
 export class CreatePostUseCases {
   constructor(
+    private readonly exceptionService: ExceptionsService,
     private readonly logger: ILogger,
     private readonly postRepository: PostRepository,
     private readonly mentionRepository: MentionRepository,
@@ -19,20 +21,24 @@ export class CreatePostUseCases {
     post_id_from?: string,
   ): Promise<PostModel> {
     if (await this.limitExceded(user_id)) {
-      throw new BadRequestException('Number of posts (5) exceded!');
+      this.exceptionService.badRequestException({
+        message: 'Number of posts (5) exceded!',
+      });
     }
 
     if (content.length > 777) {
-      throw new BadRequestException(
-        'Number of chars of content (777) exceded!',
-      );
+      this.exceptionService.badRequestException({
+        message: 'Number of chars of content (777) exceded!',
+      });
     }
 
     if (post_id_from) {
       try {
         await this.postRepository.findOne(post_id_from);
       } catch (error) {
-        throw new NotFoundException("Post (post_id_from) doesn't exists!");
+        this.exceptionService.notFoundException({
+          message: "Post (post_id_from) doesn't exists!",
+        });
       }
     }
 

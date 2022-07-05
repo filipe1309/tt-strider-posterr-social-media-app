@@ -45,9 +45,11 @@ make migrate-up
 ```sh
 make up
 ```
-> Access the API: http://localhost:3000
-> Access the DB: http://localhost:16543/browser/
-> Access the docs(swagger): http://localhost:16543/api/
+> Access the API: http://localhost:3000  
+
+> Access the docs(swagger): http://localhost:3000/api/  
+
+> Access the DB: http://localhost:16543/browser/  
 
 ## Endpoints
 
@@ -101,7 +103,7 @@ First I would meet with my team to start an outline of the technical solution an
 
 After one, or a few meetings, and after we have confidence in our solution, a reply_to_post table will be created, referencing the post, and containing the reply message.
 
-For the front, the ideal would be to reuse a good part of the code that already exists in the current feed to create the new "Posts and Replies" feed.
+For the front, the ideal would be to reuse a big part of the code that already exists in the current feed to create the new "Posts and Replies" feed.
 
 The API will need to support this new type of message, I believe it will be something similar to the quote type post, so there may be code reuse in this part.
 

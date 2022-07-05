@@ -1,4 +1,4 @@
-import { ForbiddenException, NotFoundException } from '@nestjs/common';
+import { BadRequestException, NotFoundException } from '@nestjs/common';
 import { ILogger } from '../../domain/logger/logger.interface';
 import { PostModel, PostType } from '../../domain/model/post';
 import { MentionRepository } from '../../domain/repositories/mentionRepository.interface';
@@ -19,11 +19,13 @@ export class CreatePostUseCases {
     post_id_from?: string,
   ): Promise<PostModel> {
     if (await this.limitExceded(user_id)) {
-      throw new ForbiddenException('Number of posts (5) exceded!');
+      throw new BadRequestException('Number of posts (5) exceded!');
     }
 
     if (content.length > 777) {
-      throw new ForbiddenException('Number of chars of content (777) exceded!');
+      throw new BadRequestException(
+        'Number of chars of content (777) exceded!',
+      );
     }
 
     if (post_id_from) {

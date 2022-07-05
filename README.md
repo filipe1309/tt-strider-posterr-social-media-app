@@ -101,7 +101,7 @@ make tests
 
 First I would meet with my team to start an outline of the technical solution and solve doubts about the business rules.
 
-After one, or a few meetings, and after we have confidence in our solution, a reply_to_post table will be created, referencing the post, and containing the reply message.
+After one, or a few meetings, and after we have confidence in our solution, a reply_to_post table will be created, referencing the post, and containing the reply message. This table will be used to store the replies to the posts, and will be used to build the secondary feed. The reply_to_post table will have the following columns: id, post_id, reply_text, reply_date, reply_owner_id.
 
 For the front, the ideal would be to reuse a big part of the code that already exists in the current feed to create the new "Posts and Replies" feed.
 
@@ -113,6 +113,11 @@ The API will need to support this new type of message, I believe it will be some
 In this project I used a folder structure based on Uncle Bob's "Clean Archtecture", aiming at the future of this project, making it easier to scale and, if necessary, divide the project into microservices.
 
 But there was still a need to improve the test suite, complementing the existing unit tests and adding integration and feature tests.
+
+Also, I could improve the documentation, adding more examples and more information about the API. And I could make some refactoring to the code, to make it more readable and maintainable.
+
+About scalling: I think that the project will be scalable, because it will be able to scale to a lot of users, and a lot of posts. And a good way is to use CQRS to divide the project into microservices, and to use a database as a message bus. This will make it easier to scale the project.
+
 
 ### Resources
 

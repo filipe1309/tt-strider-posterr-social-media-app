@@ -26,6 +26,12 @@ export class CreatePostUseCases {
       });
     }
 
+    if (content.length === 0) {
+      this.exceptionService.badRequestException({
+        message: 'Content is empty!',
+      });
+    }
+
     if (content.length > 777) {
       this.exceptionService.badRequestException({
         message: 'Number of chars of content (777) exceded!',

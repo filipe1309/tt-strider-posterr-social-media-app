@@ -82,7 +82,7 @@ export class PostController {
   }
 
   @Post()
-  async CreatePost(@Body() postDto: PostDto) {
+  async createPost(@Body() postDto: PostDto) {
     const { user_id, content, type, post_id_from } = postDto;
     await this.postPostUsecasesProxy
       .getInstance()

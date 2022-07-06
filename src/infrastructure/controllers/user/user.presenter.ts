@@ -15,7 +15,11 @@ export class UserPresenter {
   @ApiProperty()
   followers?: string[];
   @ApiProperty()
+  followers_total?: number;
+  @ApiProperty()
   following?: string[];
+  @ApiProperty()
+  following_total?: number;
   @ApiProperty()
   posts?: number;
 
@@ -30,7 +34,9 @@ export class UserPresenter {
       month + ' ' + created_at.getDate() + ', ' + created_at.getFullYear();
     this.updated_at = user.updated_at;
     this.followers = user.followers;
+    this.followers_total = user.followers ? user.followers.length : undefined;
     this.following = user.following;
+    this.following_total = user.following ? user.following.length : undefined;
     this.posts = user.posts;
   }
 }

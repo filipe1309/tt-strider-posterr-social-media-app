@@ -9,7 +9,7 @@ export class UserPresenter {
   @ApiProperty()
   username: string;
   @ApiProperty()
-  created_at: Date;
+  created_at: string;
   @ApiProperty()
   updated_at: Date;
   @ApiProperty()
@@ -20,10 +20,14 @@ export class UserPresenter {
   posts?: number;
 
   constructor(user: UserModel) {
+    const created_at = new Date(user.created_at);
+    const month = created_at.toLocaleString('default', { month: 'long' });
+
     this.id = user.id;
     this.name = user.name;
     this.username = user.username;
-    this.created_at = user.created_at;
+    this.created_at =
+      month + ' ' + created_at.getDate() + ', ' + created_at.getFullYear();
     this.updated_at = user.updated_at;
     this.followers = user.followers;
     this.following = user.following;

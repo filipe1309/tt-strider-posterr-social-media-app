@@ -1,10 +1,12 @@
-import { ForbiddenException } from '@nestjs/common';
+import { BadRequestException } from '@nestjs/common';
 import { ILogger } from 'src/domain/logger/logger.interface';
 import { FollowModel } from 'src/domain/model/follow';
 import { FollowRepository } from 'src/domain/repositories/followRepository.interface';
+import { ExceptionsService } from 'src/infrastructure/exceptions/exceptions.service';
 
 export class FollowUserUseCases {
   constructor(
+    private readonly exceptionService: ExceptionsService,
     private readonly logger: ILogger,
     private readonly followRepository: FollowRepository,
   ) {}
@@ -14,7 +16,7 @@ export class FollowUserUseCases {
     followed_id: string,
   ): Promise<FollowModel> {
     if (follower_id === followed_id) {
-      throw new ForbiddenException('Follower and Follwed must be different!');
+      throw new BadRequestException('Follower and Follwed must be different!');
     }
 
     const follow: FollowModel = {

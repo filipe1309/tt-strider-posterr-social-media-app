@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Inject,
   Param,
@@ -57,7 +58,7 @@ export class UserController {
     return 'success';
   }
 
-  @Post('unfollow')
+  @Delete('unfollow')
   async unfollow(@Body() followUserDto: FollowUserDto) {
     const { follower_id, followed_id } = followUserDto;
     await this.unfollowUserUseCasesProxy

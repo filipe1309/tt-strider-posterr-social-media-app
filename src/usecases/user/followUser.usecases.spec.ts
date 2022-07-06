@@ -4,6 +4,7 @@ import { LoggerService } from '../../infrastructure/logger/logger.service';
 import { UseCaseProxy } from '../../infrastructure/usecases-proxy/usecases-proxy';
 import { UsecasesProxyModule } from '../../infrastructure/usecases-proxy/usecases-proxy.module';
 import { FollowUserUseCases } from './followUser.usecases';
+import { ExceptionsService } from '../../infrastructure/exceptions/exceptions.service';
 
 const mockFollowRepository = () => ({
   follow: jest.fn(),
@@ -17,14 +18,22 @@ describe('FollowUserUseCases UseCase', () => {
     const module = await Test.createTestingModule({
       providers: [
         {
-          inject: [LoggerService, DatabaseFollowRepository],
+          inject: [ExceptionsService, LoggerService, DatabaseFollowRepository],
           provide: UsecasesProxyModule.POST_FOLLOW_USER_USECASES_PROXY,
           useFactory: (
+            exceptionsService: ExceptionsService,
             logger: LoggerService,
             followRepository: DatabaseFollowRepository,
           ) =>
-            new UseCaseProxy(new FollowUserUseCases(logger, followRepository)),
+            new UseCaseProxy(
+              new FollowUserUseCases(
+                exceptionsService,
+                logger,
+                followRepository,
+              ),
+            ),
         },
+        ExceptionsService,
         LoggerService,
         { provide: DatabaseFollowRepository, useFactory: mockFollowRepository },
       ],

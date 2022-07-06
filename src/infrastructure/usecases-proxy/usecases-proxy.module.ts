@@ -18,6 +18,7 @@ import { DatabasePostRepository } from '../repositories/post.repository';
 import { RepositoriesModule } from '../repositories/repositories.module';
 import { DatabaseUserRepository } from '../repositories/user.repository';
 import { UseCaseProxy } from './usecases-proxy';
+import { ExceptionsService } from '../exceptions/exceptions.service';
 
 @Module({
   imports: [
@@ -75,13 +76,20 @@ export class UsecasesProxyModule {
           ) => new UseCaseProxy(new GetUsersUseCases(logger, userRepository)),
         },
         {
-          inject: [LoggerService, DatabaseFollowRepository],
+          inject: [ExceptionsService, LoggerService, DatabaseFollowRepository],
           provide: UsecasesProxyModule.POST_FOLLOW_USER_USECASES_PROXY,
           useFactory: (
+            exceptionsService: ExceptionsService,
             logger: LoggerService,
             followRepository: DatabaseFollowRepository,
           ) =>
-            new UseCaseProxy(new FollowUserUseCases(logger, followRepository)),
+            new UseCaseProxy(
+              new FollowUserUseCases(
+                exceptionsService,
+                logger,
+                followRepository,
+              ),
+            ),
         },
         {
           inject: [LoggerService, DatabaseFollowRepository],
@@ -96,18 +104,25 @@ export class UsecasesProxyModule {
         },
         {
           inject: [
+            ExceptionsService,
             LoggerService,
             DatabasePostRepository,
             DatabaseMentionRepository,
           ],
           provide: UsecasesProxyModule.POST_POST_USECASES_PROXY,
           useFactory: (
+            exceptionsService: ExceptionsService,
             logger: LoggerService,
             postRepository: DatabasePostRepository,
             mentionRepository: DatabaseMentionRepository,
           ) =>
             new UseCaseProxy(
-              new CreatePostUseCases(logger, postRepository, mentionRepository),
+              new CreatePostUseCases(
+                exceptionsService,
+                logger,
+                postRepository,
+                mentionRepository,
+              ),
             ),
         },
         {

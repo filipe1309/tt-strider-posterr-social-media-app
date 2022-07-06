@@ -29,7 +29,7 @@ Content-Type: application/json
 
 ### Unfollow user
 
-POST http://localhost:3000/user/unfollow
+DELETE http://localhost:3000/user/unfollow
 Content-Type: application/json
 
 {
@@ -43,12 +43,23 @@ POST http://localhost:3000/post
 Content-Type: application/json
 
 {
-    "user_id": "b83f20a7-3d8a-4d74-9493-3434f6bd1d3c",
-    "content": "12 Post",
+    "user_id": "f8256712-0a20-4a0c-ac56-d050c7345ab7",
+    "content": "12 Post TT",
     "type": "POST"
 }
 
-### Create Post, content size exceded
+### Create Post, error empty content
+
+POST http://localhost:3000/post
+Content-Type: application/json
+
+{
+    "user_id": "b83f20a7-3d8a-4d74-9493-3434f6bd1d3c",
+    "content": "",
+    "type": "POST"
+}
+
+### Create Post, error content size exceded
 
 POST http://localhost:3000/post
 Content-Type: application/json
@@ -66,9 +77,8 @@ Content-Type: application/json
 
 {
     "user_id": "b83f20a7-3d8a-4d74-9493-3434f6bd1d3c",
-    "content": "Repost Post DB 3",
     "type": "REPOST",
-    "post_id_from": "5106d0b9-dc63-449e-b321-e2becaba9b79"
+    "post_id_from": "3fc461f9-e6f6-4741-b881-e543c9815e29"
 }
 
 ### Create Quote
@@ -80,7 +90,31 @@ Content-Type: application/json
     "user_id": "b83f20a7-3d8a-4d74-9493-3434f6bd1d3c",
     "content": "Quote Post DB 3",
     "type": "QUOTE",
-    "post_id_from": "72289928-4698-40d8-8dea-3e085a4e1b27"
+    "post_id_from": "3fc461f9-e6f6-4741-b881-e543c9815e29"
+}
+
+### Create Quote, error content is empty
+
+POST http://localhost:3000/post
+Content-Type: application/json
+
+{
+    "user_id": "b83f20a7-3d8a-4d74-9493-3434f6bd1d3c",
+    "type": "QUOTE",
+    "post_id_from": "3fc461f9-e6f6-4741-b881-e543c9815e29"
+}
+
+
+### Create Quote, error content is empty
+
+POST http://localhost:3000/post
+Content-Type: application/json
+
+{
+    "user_id": "b83f20a7-3d8a-4d74-9493-3434f6bd1d3c",
+    "content": "",
+    "type": "QUOTE",
+    "post_id_from": "3fc461f9-e6f6-4741-b881-e543c9815e29"
 }
 
 
@@ -99,7 +133,7 @@ GET http://localhost:3000/post/076f1913-9436-434e-8afe-d59a97478b87
 
 ### Get Post By User Id
 
-GET http://localhost:3000/post/user/b83f20a7-3d8a-4d74-9493-3434f6bd1d3c
+GET http://localhost:3000/post/user/f8256712-0a20-4a0c-ac56-d050c7345ab7
 
 ### Get Post By User Id with filters (skip, amount)
 

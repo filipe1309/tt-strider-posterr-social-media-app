@@ -1,4 +1,5 @@
-import { ForbiddenException, NotFoundException } from '@nestjs/common';
+import { BadRequestException, NotFoundException } from '@nestjs/common';
+import { ExceptionsService } from 'src/infrastructure/exceptions/exceptions.service';
 import { ILogger } from '../../domain/logger/logger.interface';
 import { PostModel, PostType } from '../../domain/model/post';
 import { MentionRepository } from '../../domain/repositories/mentionRepository.interface';
@@ -7,6 +8,7 @@ import { Mention } from '../../infrastructure/entities/mention.entity';
 
 export class CreatePostUseCases {
   constructor(
+    private readonly exceptionService: ExceptionsService,
     private readonly logger: ILogger,
     private readonly postRepository: PostRepository,
     private readonly mentionRepository: MentionRepository,
@@ -14,23 +16,25 @@ export class CreatePostUseCases {
 
   async execute(
     content: string,
-    user_id: string,
+    user_id: string, // TODO: validate user_id
     type: PostType,
     post_id_from?: string,
   ): Promise<PostModel> {
     if (await this.limitExceded(user_id)) {
-      throw new ForbiddenException('Number of posts (5) exceded!');
+      this.exceptionService.badRequestException({
+        message: 'Number of posts (5) exceded!',
+      });
     }
 
-    if (content.length > 777) {
-      throw new ForbiddenException('Number of chars of content (777) exceded!');
-    }
+    this.validateContent(type, content);
 
     if (post_id_from) {
       try {
         await this.postRepository.findOne(post_id_from);
       } catch (error) {
-        throw new NotFoundException("Post (post_id_from) doesn't exists!");
+        this.exceptionService.notFoundException({
+          message: "Post (post_id_from) doesn't exists!",
+        });
       }
     }
 
@@ -56,17 +60,43 @@ export class CreatePostUseCases {
     return result;
   }
 
+  private validateContent(type: string, content: string | undefined): void {
+    if (type === PostType.REPOST && content !== undefined) {
+      this.exceptionService.badRequestException({
+        message: 'Reposts can not have content!',
+      });
+    }
+
+    if (type !== PostType.REPOST && content === undefined) {
+      this.exceptionService.badRequestException({
+        message: 'Posts & Quotes must have content!',
+      });
+    }
+
+    if (content.length === 0) {
+      this.exceptionService.badRequestException({
+        message: 'Content is empty!',
+      });
+    }
+
+    if (content.length > 777) {
+      this.exceptionService.badRequestException({
+        message: 'Number of chars of content (777) exceded!',
+      });
+    }
+  }
   private async limitExceded(user_id: string): Promise<boolean> {
-    const posts = await this.postRepository.findByUserId(user_id);
+    const posts = await this.postRepository.findByUserId(user_id, 0, 0);
     let todayPosts = 0;
     for await (const post of posts) {
       todayPosts += this.isInToday(new Date(post.created_at)) ? 1 : 0;
     }
+    console.log(todayPosts, posts.length);
     return todayPosts >= 5;
   }
 
   private isInToday(inputDate: Date): boolean {
     const today = new Date();
-    return today.setHours(0, 0, 0, 0) == inputDate.setHours(0, 0, 0, 0);
+    return today.setHours(0, 0, 0, 0) === inputDate.setHours(0, 0, 0, 0);
   }
 }

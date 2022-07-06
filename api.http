@@ -90,7 +90,31 @@ Content-Type: application/json
     "user_id": "b83f20a7-3d8a-4d74-9493-3434f6bd1d3c",
     "content": "Quote Post DB 3",
     "type": "QUOTE",
-    "post_id_from": "72289928-4698-40d8-8dea-3e085a4e1b27"
+    "post_id_from": "3fc461f9-e6f6-4741-b881-e543c9815e29"
+}
+
+### Create Quote, error content is empty
+
+POST http://localhost:3000/post
+Content-Type: application/json
+
+{
+    "user_id": "b83f20a7-3d8a-4d74-9493-3434f6bd1d3c",
+    "type": "QUOTE",
+    "post_id_from": "3fc461f9-e6f6-4741-b881-e543c9815e29"
+}
+
+
+### Create Quote, error content is empty
+
+POST http://localhost:3000/post
+Content-Type: application/json
+
+{
+    "user_id": "b83f20a7-3d8a-4d74-9493-3434f6bd1d3c",
+    "content": "",
+    "type": "QUOTE",
+    "post_id_from": "3fc461f9-e6f6-4741-b881-e543c9815e29"
 }
 
 

@@ -16,7 +16,7 @@ export class CreatePostUseCases {
 
   async execute(
     content: string,
-    user_id: string,
+    user_id: string, // TODO: validate user_id
     type: PostType,
     post_id_from?: string,
   ): Promise<PostModel> {
@@ -26,23 +26,7 @@ export class CreatePostUseCases {
       });
     }
 
-    if (type === PostType.REPOST && content) {
-      this.exceptionService.badRequestException({
-        message: 'Reposts can not have content!',
-      });
-    }
-
-    if (content && content.length === 0) {
-      this.exceptionService.badRequestException({
-        message: 'Content is empty!',
-      });
-    }
-
-    if (content && content.length > 777) {
-      this.exceptionService.badRequestException({
-        message: 'Number of chars of content (777) exceded!',
-      });
-    }
+    this.validateContent(type, content);
 
     if (post_id_from) {
       try {
@@ -76,6 +60,31 @@ export class CreatePostUseCases {
     return result;
   }
 
+  private validateContent(type: string, content: string | undefined): void {
+    if (type === PostType.REPOST && content !== undefined) {
+      this.exceptionService.badRequestException({
+        message: 'Reposts can not have content!',
+      });
+    }
+
+    if (type !== PostType.REPOST && content === undefined) {
+      this.exceptionService.badRequestException({
+        message: 'Posts & Quotes must have content!',
+      });
+    }
+
+    if (content.length === 0) {
+      this.exceptionService.badRequestException({
+        message: 'Content is empty!',
+      });
+    }
+
+    if (content.length > 777) {
+      this.exceptionService.badRequestException({
+        message: 'Number of chars of content (777) exceded!',
+      });
+    }
+  }
   private async limitExceded(user_id: string): Promise<boolean> {
     const posts = await this.postRepository.findByUserId(user_id);
     let todayPosts = 0;

@@ -86,16 +86,17 @@ export class CreatePostUseCases {
     }
   }
   private async limitExceded(user_id: string): Promise<boolean> {
-    const posts = await this.postRepository.findByUserId(user_id);
+    const posts = await this.postRepository.findByUserId(user_id, 0, 0);
     let todayPosts = 0;
     for await (const post of posts) {
       todayPosts += this.isInToday(new Date(post.created_at)) ? 1 : 0;
     }
+    console.log(todayPosts, posts.length);
     return todayPosts >= 5;
   }
 
   private isInToday(inputDate: Date): boolean {
     const today = new Date();
-    return today.setHours(0, 0, 0, 0) == inputDate.setHours(0, 0, 0, 0);
+    return today.setHours(0, 0, 0, 0) === inputDate.setHours(0, 0, 0, 0);
   }
 }

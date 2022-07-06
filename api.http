@@ -43,7 +43,7 @@ POST http://localhost:3000/post
 Content-Type: application/json
 
 {
-    "user_id": "b83f20a7-3d8a-4d74-9493-3434f6bd1d3c",
+    "user_id": "f8256712-0a20-4a0c-ac56-d050c7345ab7",
     "content": "12 Post TT",
     "type": "POST"
 }
@@ -133,7 +133,7 @@ GET http://localhost:3000/post/076f1913-9436-434e-8afe-d59a97478b87
 
 ### Get Post By User Id
 
-GET http://localhost:3000/post/user/b83f20a7-3d8a-4d74-9493-3434f6bd1d3c
+GET http://localhost:3000/post/user/f8256712-0a20-4a0c-ac56-d050c7345ab7
 
 ### Get Post By User Id with filters (skip, amount)
 
